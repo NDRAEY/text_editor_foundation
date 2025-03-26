@@ -13,18 +13,15 @@ pub struct Position {
     y: usize
 }
 
-#[derive(Debug)]
-pub struct VirtualScreen {
-    rows: usize,
-    cols: usize,
-    is_line_wrapping: bool,
-    tab_width: usize
-}
-
 pub struct VirtualEditor {
     text: String,
-
     cursor: Position
+}
+
+impl Default for VirtualEditor {
+    fn default() -> Self {
+        Self::new()
+    }
 }
 
 impl VirtualEditor {
@@ -161,7 +158,7 @@ impl VirtualEditor {
     }
 
     pub fn get_line_at_cursor(&self) -> &str {
-        &self.lines()[self.cursor.y]
+        self.lines()[self.cursor.y]
     }
 
     pub fn delete_line(&mut self) -> String {
