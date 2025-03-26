@@ -2,5 +2,6 @@
 name = "text_editor_foundation"
 version = "0.1.0"
 edition = "2024"
+authors = ["NDRAEY <pikachu_andrey@vk.com>"]
 
 [dependencies]
