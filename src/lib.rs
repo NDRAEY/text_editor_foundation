@@ -128,7 +128,7 @@ impl VirtualEditor {
     }
 
     pub fn move_to_line_end(&mut self) {
-        self.cursor.x = self.get_line_at_cursor().len().saturating_sub(1);
+        self.cursor.x = self.get_line_at_cursor().len();
     }
 
     pub fn delete_char_left(&mut self) {
