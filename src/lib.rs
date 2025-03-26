@@ -9,8 +9,8 @@ pub mod tests;
 
 #[derive(Debug, Default)]
 pub struct Position {
-    x: usize,
-    y: usize
+    pub x: usize,
+    pub y: usize
 }
 
 pub struct VirtualEditor {
