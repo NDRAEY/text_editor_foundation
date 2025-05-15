@@ -153,6 +153,18 @@ impl VirtualEditor {
         self.text.insert_str(self.text_position(), st);
     }
 
+    pub fn insert_char_move(&mut self, ch: char) {
+        self.insert_char(ch);
+
+        self.move_right();
+    }
+
+    pub fn insert_str_move(&mut self, st: &str) {
+        self.insert_str(st);
+
+        self.cursor.x += st.len();
+    }
+
     pub fn get_character_at_cursor(&self) -> char {
         self.get_line_at_cursor().chars().nth(self.cursor.x).unwrap()
     }

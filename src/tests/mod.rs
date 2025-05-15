@@ -112,3 +112,13 @@ pub fn empty_input() {
 
     assert_eq!(ed.text(), "");
 }
+
+#[test]
+pub fn insert_at_begin() {
+    let mut ed = VirtualEditor::new();
+
+    ed.insert_str("Hello, world!");
+    ed.insert_str("That's cool! ");
+
+    assert_eq!(ed.text(), "That's cool! Hello, world!");
+}
