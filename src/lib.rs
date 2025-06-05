@@ -139,6 +139,16 @@ impl VirtualEditor {
         self.text.remove(self.text_position() - 1);
     }
 
+    pub fn delete_char_left_nocheck(&mut self) {
+        let pos = self.text_position();
+
+        if pos == 0 {
+            return;
+        }
+
+        self.text.remove(pos - 1);
+    }
+
     pub fn delete_char_right(&mut self) {
         if self.cursor.x == self.lines()[self.cursor.y].len() {
             return;
