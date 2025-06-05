@@ -156,6 +156,16 @@ impl VirtualEditor {
         self.text.remove(self.text_position());
     }
 
+    pub fn delete_char_right_nocheck(&mut self) {
+        let pos = self.text_position();
+
+        if pos >= self.text.len() {
+            return;
+        }
+
+        self.text.remove(self.text_position());
+    }
+
     pub fn insert_char(&mut self, ch: char) {
         let position = self.text_position();
         //println!("[{} | {:?} | {:?}] Inserting char: {}", position, self.cursor(), &self.text[..position], ch);
