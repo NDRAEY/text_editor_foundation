@@ -1,5 +1,7 @@
 use alloc::borrow::ToOwned;
 
+pub mod movable;
+
 use crate::VirtualEditor;
 
 const UNIVERSAL_MULTILINE_STRING: &str = "Lucario\nRiolu\nZoroark\nPikachu\nZeraora\nLuxio";

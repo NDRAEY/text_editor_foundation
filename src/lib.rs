@@ -50,16 +50,17 @@ impl VirtualEditor {
     }
 
     pub fn text_position(&self) -> usize {
-        let lines = &self.lines()[..self.cursor.y];
-        let mut lines_position = 0usize;
-        
-        {
-            for i in lines {
-                lines_position += i.len() + 1;
+        let mut position = 0;
+        for (i, line) in self.text.lines().enumerate() {
+            if i == self.cursor.y {
+                // Add the byte length of the characters up to cursor.x in this line
+                position += line.chars().take(self.cursor.x).map(|c| c.len_utf8()).sum::<usize>();
+                break;
             }
+            // Add the byte length of the whole line plus one for the newline character
+            position += line.len() + 1;
         }
-
-        lines_position + self.cursor.x
+        position
     }
 
     pub fn move_up(&mut self) {
@@ -132,7 +133,7 @@ impl VirtualEditor {
     }
 
     pub fn delete_char_left(&mut self) {
-        if self.cursor.x == self.lines()[self.cursor.y].len() {
+        if self.cursor.x == 0 {
             return;
         }
         self.text.remove(self.text_position());
@@ -146,7 +147,9 @@ impl VirtualEditor {
     }
 
     pub fn insert_char(&mut self, ch: char) {
-        self.text.insert(self.text_position(), ch);
+        let position = self.text_position();
+        //println!("[{} | {:?} | {:?}] Inserting char: {}", position, self.cursor(), &self.text[..position], ch);
+        self.text.insert(position, ch);
     }
     
     pub fn insert_str(&mut self, st: &str) {
@@ -156,13 +159,18 @@ impl VirtualEditor {
     pub fn insert_char_move(&mut self, ch: char) {
         self.insert_char(ch);
 
-        self.move_right();
+        if ch == '\n' {
+            self.move_to_line_begin();
+            self.move_down();
+        } else {
+            self.move_right();
+        }
     }
 
     pub fn insert_str_move(&mut self, st: &str) {
-        self.insert_str(st);
-
-        self.cursor.x += st.len();
+        for ch in st.chars() {
+            self.insert_char_move(ch);
+        }
     }
 
     pub fn get_character_at_cursor(&self) -> char {
