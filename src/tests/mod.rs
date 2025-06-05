@@ -1,6 +1,7 @@
 use alloc::borrow::ToOwned;
 
 pub mod movable;
+pub mod delete;
 
 use crate::VirtualEditor;
 

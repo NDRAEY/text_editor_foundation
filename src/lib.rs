@@ -1,4 +1,4 @@
-#![no_std]
+#![cfg_attr(not(test), no_std)]
 
 extern crate alloc;
 
@@ -136,14 +136,14 @@ impl VirtualEditor {
         if self.cursor.x == 0 {
             return;
         }
-        self.text.remove(self.text_position());
+        self.text.remove(self.text_position() - 1);
     }
 
     pub fn delete_char_right(&mut self) {
         if self.cursor.x == self.lines()[self.cursor.y].len() {
             return;
         }
-        self.text.remove(self.text_position() + 1);
+        self.text.remove(self.text_position());
     }
 
     pub fn insert_char(&mut self, ch: char) {
