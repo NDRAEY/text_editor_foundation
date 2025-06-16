@@ -219,4 +219,10 @@ impl VirtualEditor {
 
         line
     }
+
+    pub fn clear(&mut self) {
+        self.text.clear();
+        self.cursor.x = 0;
+        self.cursor.y = 0;
+    }
 }
